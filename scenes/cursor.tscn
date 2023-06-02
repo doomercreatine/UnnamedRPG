@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dph83hy81t0rh"]
+
+[ext_resource type="Script" path="res://scripts/cursor.gd" id="1_mf7yk"]
+[ext_resource type="Texture2D" uid="uid://bno1na44bcrpg" path="res://assets/tilesets/cursor.png" id="2_74533"]
+
+[node name="Cursor" type="Node2D"]
+script = ExtResource("1_mf7yk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_74533")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
