@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk2fw27xia3au"]
+[gd_scene load_steps=3 format=3 uid="uid://dk2fw27xia3au"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_uvh8p"]
+[ext_resource type="Texture2D" uid="uid://dtnqauc26pkj2" path="res://assets/menu/doomerReallyMadv3.png" id="2_m5sim"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -16,10 +17,10 @@ color = Color(0.113725, 0.113725, 0.113725, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 55
-theme_override_constants/margin_top = 35
-theme_override_constants/margin_right = 55
-theme_override_constants/margin_bottom = 35
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -28,11 +29,34 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 42
+text = "Chat til you Die"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 30
+size_flags_vertical = 8
 alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 120
+
+[node name="Continue" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0.490196, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.490196, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0.490196, 1)
+theme_override_font_sizes/font_size = 18
+text = "Continue
+"
+flat = true
+alignment = 0
 
 [node name="NewGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -54,21 +78,21 @@ text = "Quit"
 flat = true
 alignment = 0
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Ver. 0.0.1
-Godot v4.0.3.stable.official 
-[5222a99f5]"
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 42
-text = "Chat til you Die"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_button_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_top = 60
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_m5sim")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Quitgame" to="." method="_on_quitgame_pressed"]

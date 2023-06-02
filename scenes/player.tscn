@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://n8derybhkawn"]
+[gd_scene load_steps=12 format=3 uid="uid://n8derybhkawn"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ei23t"]
 [ext_resource type="Texture2D" uid="uid://xnhvx402xsf" path="res://assets/character/character.png" id="1_xvkmn"]
-[ext_resource type="Texture2D" uid="uid://ue3o1y28qqov" path="res://assets/light3.png" id="3_n14na"]
+[ext_resource type="Texture2D" uid="uid://ue3o1y28qqov" path="res://assets/lighting/light3.png" id="3_puemt"]
+[ext_resource type="FontFile" uid="uid://cwbo583vduskd" path="res://assets/font/NESCyrillic.ttf" id="4_0rbpa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0t5d"]
 size = Vector2(7, 8)
@@ -21,6 +22,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Torch:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -11)]
+}
 
 [sub_resource type="Animation" id="Animation_pxei4"]
 resource_name = "idle_down"
@@ -38,6 +51,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Torch:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(7, -11), Vector2(7, -12), Vector2(7, -11), Vector2(7, -11), Vector2(7, -11)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rs0qm"]
 _data = {
@@ -45,7 +70,19 @@ _data = {
 "idle_down": SubResource("Animation_pxei4")
 }
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jy7y6"]
+load_path = "res://.godot/imported/items.png-c4408c4fe152b33a0c65216daba38a2d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j54jh"]
+atlas = SubResource("CompressedTexture2D_jy7y6")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gv8d5"]
+radius = 22.0
+
 [node name="player" type="CharacterBody2D"]
+z_index = 100
+collision_mask = 0
 script = ExtResource("1_ei23t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -78,5 +115,42 @@ modulate = Color(1, 1, 1, 0.0666667)
 blend_mode = 2
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
-texture = ExtResource("3_n14na")
-texture_scale = 5.0
+texture = ExtResource("3_puemt")
+
+[node name="Torch" type="Sprite2D" parent="."]
+position = Vector2(7, -11)
+rotation = 0.261799
+texture = SubResource("AtlasTexture_j54jh")
+
+[node name="Thoughts" type="Label" parent="."]
+light_mask = 0
+custom_minimum_size = Vector2(120, 20)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -62.0
+offset_top = -46.0
+offset_right = 66.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_0rbpa")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_gv8d5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://btc3mafjy82ex"]
+[gd_scene load_steps=22 format=3 uid="uid://btc3mafjy82ex"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_f7w1k"]
 [ext_resource type="Texture2D" uid="uid://cr3ck5vstlfp0" path="res://assets/tilesets/grass.png" id="1_rgmac"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://scripts/TileMap.gd" id="5_gowui"]
 [ext_resource type="Texture2D" uid="uid://b6qhwuu7ntm7m" path="res://assets/tilesets/wall.png" id="6_phk4s"]
 [ext_resource type="PackedScene" uid="uid://dph83hy81t0rh" path="res://scenes/cursor.tscn" id="7_mmim4"]
-[ext_resource type="Texture2D" uid="uid://cvnlfv4siet6k" path="res://assets/pepw.png" id="10_vkkmf"]
+[ext_resource type="Texture2D" uid="uid://cvnlfv4siet6k" path="res://assets/enemies/pepw.png" id="10_3ycjk"]
+[ext_resource type="Script" path="res://scripts/PEPW.gd" id="11_0y55n"]
+[ext_resource type="AudioStream" uid="uid://bo1o6irt0pwcg" path="res://assets/sounds/sci_pain4.wav" id="11_sjqnj"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5apkd"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -83,6 +85,10 @@ sources/1 = SubResource("TileSetAtlasSource_6toqm")
 sources/2 = SubResource("TileSetAtlasSource_dm2w3")
 sources/5 = SubResource("TileSetAtlasSource_dc32u")
 sources/6 = SubResource("TileSetAtlasSource_4wc8t")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kta2l"]
+radius = 310.0
+height = 620.0
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_f7w1k")
@@ -232,5 +238,21 @@ color = Color(1, 1, 1, 0.509804)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(294, 239)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("10_vkkmf")
+texture = ExtResource("10_3ycjk")
 flip_h = true
+script = ExtResource("11_0y55n")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sprite2D"]
+stream = ExtResource("11_sjqnj")
+volume_db = -15.0
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("CapsuleShape2D_kta2l")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[connection signal="area_entered" from="Sprite2D/Area2D" to="Sprite2D" method="_on_area_2d_area_entered"]

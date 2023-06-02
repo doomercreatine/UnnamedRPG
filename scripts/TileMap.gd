@@ -11,7 +11,7 @@ var hover_tiles: Array
 var is_moving: bool = false
 
 func _input(event):
-	if (event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT) and not is_moving:
+	if (world.visible and event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT) and not is_moving:
 		var mouse_pos = local_to_map(get_global_mouse_position())
 		var player_pos = local_to_map(player.position)
 		target_tile.position = map_to_local(mouse_pos)
@@ -41,22 +41,23 @@ func move():
 	is_moving = false
 
 func _physics_process(delta):
-	hover_mouse_position = local_to_map(get_global_mouse_position())
-	cursor.position = map_to_local(hover_mouse_position)
-	var player_pos = local_to_map(player.position)
-	var hover_path = _get_hover_path(player_pos, hover_mouse_position)
-	if !hover_tiles.is_empty():
-		for ht in hover_tiles:
-			hover_tiles[0].queue_free()
-			hover_tiles.remove_at(0)
-	for p in hover_path:
-		var new_tile = target_tile.duplicate()
-		new_tile.position = map_to_local(p)
-		new_tile.position.x -= 8
-		new_tile.position.y -= 8
-		new_tile.color = Color(0, 255, 0, 0.05)
-		new_tile.show()			
-		hover_tiles.append(new_tile)
-	if not is_moving:
-		for ht in hover_tiles:
-			self.add_child(ht)
+	if world.visible:
+		hover_mouse_position = local_to_map(get_global_mouse_position())
+		cursor.position = map_to_local(hover_mouse_position)
+		var player_pos = local_to_map(player.position)
+		var hover_path = _get_hover_path(player_pos, hover_mouse_position)
+		if !hover_tiles.is_empty():
+			for ht in hover_tiles:
+				hover_tiles[0].queue_free()
+				hover_tiles.remove_at(0)
+		for p in hover_path:
+			var new_tile = target_tile.duplicate()
+			new_tile.position = map_to_local(p)
+			new_tile.position.x -= 8
+			new_tile.position.y -= 8
+			new_tile.color = Color(0, 255, 0, 0.05)
+			new_tile.show()			
+			hover_tiles.append(new_tile)
+		if not is_moving:
+			for ht in hover_tiles:
+				self.add_child(ht)

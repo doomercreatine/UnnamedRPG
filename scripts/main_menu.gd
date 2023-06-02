@@ -1,5 +1,7 @@
 extends MarginContainer
 
+@onready var world = $"../world"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,9 +13,13 @@ func _process(delta):
 	pass
 
 
-func _on_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
-
-
 func _on_quitgame_pressed():
 	get_tree().quit()
+
+
+func _on_new_game_pressed():
+	self.hide()
+	world.show()
+	self.queue_free()
+
+	
