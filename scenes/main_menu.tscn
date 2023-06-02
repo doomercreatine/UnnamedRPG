@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk2fw27xia3au"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_uvh8p"]
+
+[node name="MainMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uvh8p")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.113725, 0.113725, 0.113725, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 55
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 55
+theme_override_constants/margin_bottom = 35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="NewGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0.490196, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.490196, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0.490196, 1)
+theme_override_font_sizes/font_size = 18
+text = "New Game"
+flat = true
+alignment = 0
+
+[node name="Quitgame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0.490196, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.490196, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0.490196, 1)
+theme_override_font_sizes/font_size = 18
+text = "Quit"
+flat = true
+alignment = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Ver. 0.0.1
+Godot v4.0.3.stable.official 
+[5222a99f5]"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 42
+text = "Chat til you Die"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Quitgame" to="." method="_on_quitgame_pressed"]
