@@ -1,6 +1,6 @@
 extends MarginContainer
 
-@onready var world = $"../world"
+var world = preload("res://scenes/world.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,8 +18,8 @@ func _on_quitgame_pressed():
 
 
 func _on_new_game_pressed():
-	self.hide()
-	world.show()
+	var instance = world.instantiate()
+	get_parent().add_child(instance)
 	self.queue_free()
 
 	

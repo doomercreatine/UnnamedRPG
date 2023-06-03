@@ -44,7 +44,7 @@ func _physics_process(delta):
 	if world.visible:
 		hover_mouse_position = local_to_map(get_global_mouse_position())
 		cursor.position = map_to_local(hover_mouse_position)
-		var player_pos = local_to_map(player.position)
+		"var player_pos = local_to_map(player.position)
 		var hover_path = _get_hover_path(player_pos, hover_mouse_position)
 		if !hover_tiles.is_empty():
 			for ht in hover_tiles:
@@ -60,4 +60,4 @@ func _physics_process(delta):
 			hover_tiles.append(new_tile)
 		if not is_moving:
 			for ht in hover_tiles:
-				self.add_child(ht)
+				add_child(ht)"

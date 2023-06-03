@@ -1,8 +1,10 @@
 extends Node2D
 
+@onready var canvas_layer_2 = $CanvasLayer2
 
 func _ready():
 	$Cursor.show()
+	
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_fullscreen"):
