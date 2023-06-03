@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0q0cjvyd630g"]
+
+[ext_resource type="FontFile" uid="uid://cwbo583vduskd" path="res://assets/font/NESCyrillic.ttf" id="1_2njio"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nrd1k"]
+thickness = 0
+
+[sub_resource type="Theme" id="Theme_1w46u"]
+VScrollBar/styles/scroll = SubResource("StyleBoxLine_nrd1k")
+
+[node name="LogCanvas" type="CanvasLayer"]
+
+[node name="ScrollLog" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0.509804)
+custom_minimum_size = Vector2(200, 50)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -60.0
+offset_right = 210.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme = SubResource("Theme_1w46u")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/table_odd_row_bg = Color(0, 0, 0.419608, 1)
+theme_override_colors/table_even_row_bg = Color(0, 0.419608, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("1_2njio")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+scroll_following = true

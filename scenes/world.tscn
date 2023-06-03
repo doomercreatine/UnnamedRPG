@@ -10,10 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://b6qhwuu7ntm7m" path="res://assets/tilesets/wall.png" id="6_phk4s"]
 [ext_resource type="PackedScene" uid="uid://dph83hy81t0rh" path="res://scenes/cursor.tscn" id="7_mmim4"]
 [ext_resource type="Texture2D" uid="uid://cvnlfv4siet6k" path="res://assets/enemies/pepw.png" id="10_3ycjk"]
+[ext_resource type="PackedScene" uid="uid://cf6h5471duhej" path="res://scenes/target_tile.tscn" id="10_sfmat"]
 [ext_resource type="Script" path="res://scripts/PEPW.gd" id="11_0y55n"]
 [ext_resource type="AudioStream" uid="uid://bo1o6irt0pwcg" path="res://assets/sounds/sci_pain4.wav" id="11_sjqnj"]
 [ext_resource type="Script" path="res://scripts/pepw_area2d.gd" id="13_tftts"]
-[ext_resource type="FontFile" uid="uid://cwbo583vduskd" path="res://assets/font/NESCyrillic.ttf" id="13_w3xwp"]
+[ext_resource type="PackedScene" uid="uid://b0q0cjvyd630g" path="res://scenes/log_canvas.tscn" id="14_e4tam"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5apkd"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -92,11 +93,8 @@ sources/6 = SubResource("TileSetAtlasSource_4wc8t")
 radius = 310.0
 height = 620.0
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_nrd1k"]
-thickness = 0
-
-[sub_resource type="Theme" id="Theme_1w46u"]
-VScrollBar/styles/scroll = SubResource("StyleBoxLine_nrd1k")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm4sn"]
+size = Vector2(16, 16)
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_f7w1k")
@@ -120,128 +118,23 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = "Moveable"
+layer_2/name = "Solid"
 layer_2/enabled = true
 layer_2/modulate = Color(0, 0, 0, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(65547, 0, 0, 131083, 0, 0, 196619, 0, 0, 262155, 0, 0, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 0, 0, 786443, 0, 0, 851979, 0, 0, 917515, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 1114132, 0, 0, 1179668, 0, 0, 1245204, 0, 0, 1310740, 0, 0, 1376276, 0, 0, 11, 0, 0, 30, 0, 0, 65566, 0, 0, 131102, 0, 0, 196638, 0, 0, 262174, 0, 0, 327710, 0, 0, 393246, 0, 0, 458782, 0, 0, 524318, 0, 0, 589854, 0, 0, 655390, 0, 0, 720926, 0, 0, 786462, 0, 0, 851998, 0, 0, 917534, 0, 0, 1048603, 0, 0, 1114139, 0, 0, 1179675, 0, 0, 1048604, 0, 0, 1114140, 0, 0, 1179676, 0, 0, 1048605, 0, 0, 1114141, 0, 0, 1179677, 0, 0, 983053, 0, 0, 1048589, 0, 0, 1114125, 0, 0, 983054, 0, 0, 1048590, 0, 0, 1114126, 0, 0, 983055, 0, 0, 1048591, 0, 0, 1114127, 0, 0, 1441812, 6, 0)
+layer_2/tile_data = PackedInt32Array(65547, 0, 0, 131083, 0, 0, 196619, 0, 0, 262155, 0, 0, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 0, 0, 786443, 0, 0, 851979, 0, 0, 917515, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 1114132, 0, 0, 1179668, 0, 0, 1245204, 0, 0, 1310740, 0, 0, 1376276, 0, 0, 11, 0, 0, 30, 0, 0, 65566, 0, 0, 131102, 0, 0, 196638, 0, 0, 327710, 0, 0, 393246, 0, 0, 458782, 0, 0, 524318, 0, 0, 589854, 0, 0, 655390, 0, 0, 720926, 0, 0, 786462, 0, 0, 851998, 0, 0, 917534, 0, 0, 1048603, 0, 0, 1114139, 0, 0, 1179675, 0, 0, 1048604, 0, 0, 1114140, 0, 0, 1179676, 0, 0, 1048605, 0, 0, 1114141, 0, 0, 1179677, 0, 0, 983053, 0, 0, 1048589, 0, 0, 1114125, 0, 0, 983054, 0, 0, 1048590, 0, 0, 1114126, 0, 0, 983055, 0, 0, 1048591, 0, 0, 1114127, 0, 0, 1441812, 6, 0)
 script = ExtResource("5_gowui")
+layer_2/name = "Solid"
+
+[node name="TargetTile" parent="TileMap" instance=ExtResource("10_sfmat")]
+
+[node name="Cursor" parent="TileMap" instance=ExtResource("7_mmim4")]
+visible = false
 
 [node name="player" parent="." instance=ExtResource("3_6fxqe")]
 position = Vector2(56, 190)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="HotbarContainer" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -45.0
-offset_right = 147.0
-offset_bottom = -5.0
-grow_vertical = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HotbarContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HotbarContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="Button" type="Button" parent="CanvasLayer/HotbarContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Button2" type="Button" parent="CanvasLayer/HotbarContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Button3" type="Button" parent="CanvasLayer/HotbarContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Button4" type="Button" parent="CanvasLayer/HotbarContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-visible = false
-offset_left = 523.0
-offset_top = 104.0
-offset_right = 635.0
-offset_bottom = 216.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
-layout_mode = 2
-columns = 3
-
-[node name="Panel" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel2" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel3" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel4" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel5" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel6" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel7" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel8" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Panel9" type="Panel" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Cursor" parent="." instance=ExtResource("7_mmim4")]
-visible = false
-
-[node name="TargetTile" type="ColorRect" parent="."]
-visible = false
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-color = Color(1, 1, 1, 0.509804)
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["enemies"]]
 position = Vector2(294, 239)
@@ -262,26 +155,16 @@ script = ExtResource("13_tftts")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
 shape = SubResource("CapsuleShape2D_kta2l")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="LogCanvas" parent="." instance=ExtResource("14_e4tam")]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer2"]
-custom_minimum_size = Vector2(200, 50)
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -60.0
-offset_right = 210.0
-offset_bottom = -10.0
-grow_vertical = 0
-theme = SubResource("Theme_1w46u")
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/table_odd_row_bg = Color(0, 0, 0.419608, 1)
-theme_override_colors/table_even_row_bg = Color(0, 0.419608, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/normal_font = ExtResource("13_w3xwp")
-theme_override_font_sizes/normal_font_size = 12
-bbcode_enabled = true
-scroll_following = true
+[node name="Door" type="Area2D" parent="."]
+position = Vector2(480, 64)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_cm4sn")
 
 [connection signal="area_entered" from="Sprite2D/Area2D" to="Sprite2D" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Door" to="." method="_on_door_area_entered"]

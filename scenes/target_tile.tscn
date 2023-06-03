@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf6h5471duhej"]
+
+[ext_resource type="Texture2D" uid="uid://c5o40xlsp2cs" path="res://assets/tilesets/empty.png" id="1_gi8ub"]
+
+[node name="TextureRect" type="TextureRect"]
+modulate = Color(1, 1, 1, 0.509804)
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_gi8ub")
