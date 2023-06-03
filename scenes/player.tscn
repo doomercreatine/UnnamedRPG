@@ -123,6 +123,7 @@ rotation = 0.261799
 texture = SubResource("AtlasTexture_j54jh")
 
 [node name="Thoughts" type="Label" parent="."]
+visible = false
 light_mask = 0
 custom_minimum_size = Vector2(120, 20)
 anchors_preset = 15
