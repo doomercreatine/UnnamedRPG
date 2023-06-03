@@ -1,9 +1,9 @@
 extends Node2D
-
-@onready var canvas_layer_2 = $CanvasLayer2
+@onready var player = $player
 
 func _ready():
-	$Cursor.show()
+	$TileMap/Cursor.show()
+	player.find_child("VisionLight").visible = true
 	
 	
 func _unhandled_input(event):
