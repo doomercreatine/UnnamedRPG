@@ -16,4 +16,8 @@ func _process(_delta):
 	if world.visible:
 		hover_mouse_position = local_to_map(get_global_mouse_position())
 		cursor.position = map_to_local(hover_mouse_position)
+		if self.astargrid.is_point_solid(hover_mouse_position):
+			cursor.modulate = Color(255, 255, 255, 0)
+		else:
+			cursor.modulate = Color(255, 255, 255, 1)
 		
