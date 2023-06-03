@@ -1,4 +1,5 @@
 extends BaseUnit
+
 # ===== Scene Imports =====
 @onready var torch = $HeldItem/Torch
 @onready var thought_timer = $ThoughtTimer
@@ -18,8 +19,8 @@ var is_moving: bool = false
 func _process(_delta) -> void:
 	# Each frame check if the torch is equipped and change visibility radius
 	if has_torch:
-		vision_light.texture_scale = 10
 		torch.show()
+		vision_light.texture_scale = 10		
 	else:
 		torch.hide()
 		vision_light.texture_scale = 2
@@ -31,7 +32,7 @@ func _physics_process(_delta) -> void:
 
 func get_input() -> void:
 	# Toggle the torch on or off
-	if Input.is_action_just_pressed("test"):
+	if Input.is_action_just_pressed("torch"):
 		# Torch only needed on specific maps which will be set in the map's script
 		if vision_light.visible:
 			has_torch = !has_torch
@@ -41,7 +42,7 @@ func get_input() -> void:
 			else:
 				scroll_log.append_text("\nYou unequipped the torch.")
 				
-	# Handles user movement on the grid			
+	# Handles user movement on the grid
 	if Input.is_action_just_pressed("left_click"):
 		# Only calculate movement if player not currently moving 
 		if not is_moving:
@@ -67,11 +68,11 @@ func _calculate_movement_path(target_pos: Vector2) -> void:
 	move()
 
 # Flavor function to have the player think that it's dark
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	if not has_torch and vision_light.visible:
 		scroll_log.append_text("\n[color=%s]It's so dark...[/color]" % THOUGHT_COLOR)
 				
-func move():
+func move() -> void:
 	# Flag that the player is moving
 	# Prevents the player from trying to move while already in motion
 	is_moving = true
