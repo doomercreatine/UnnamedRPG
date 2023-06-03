@@ -14,8 +14,8 @@ func _ready() -> void:
 	# Populate the AStarGrid2D
 	astargrid.size = GRID_SIZE
 	astargrid.cell_size = CELL_SIZE
-	astargrid.default_compute_heuristic = 4
-	astargrid.diagonal_mode = 3
+	astargrid.default_compute_heuristic = 1
+	astargrid.diagonal_mode = 1
 	
 	# Adds all tiles to the grid
 	astargrid.update()
