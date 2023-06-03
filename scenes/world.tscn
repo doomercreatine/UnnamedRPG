@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://btc3mafjy82ex"]
+[gd_scene load_steps=26 format=3 uid="uid://btc3mafjy82ex"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_f7w1k"]
 [ext_resource type="Texture2D" uid="uid://cr3ck5vstlfp0" path="res://assets/tilesets/grass.png" id="1_rgmac"]
@@ -93,6 +93,9 @@ sources/6 = SubResource("TileSetAtlasSource_4wc8t")
 radius = 310.0
 height = 620.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm4sn"]
+size = Vector2(16, 16)
+
 [node name="world" type="Node2D"]
 script = ExtResource("1_f7w1k")
 
@@ -115,14 +118,15 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = "Moveable"
+layer_2/name = "Solid"
 layer_2/enabled = true
 layer_2/modulate = Color(0, 0, 0, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(65547, 0, 0, 131083, 0, 0, 196619, 0, 0, 262155, 0, 0, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 0, 0, 786443, 0, 0, 851979, 0, 0, 917515, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 1114132, 0, 0, 1179668, 0, 0, 1245204, 0, 0, 1310740, 0, 0, 1376276, 0, 0, 11, 0, 0, 30, 0, 0, 65566, 0, 0, 131102, 0, 0, 196638, 0, 0, 262174, 0, 0, 327710, 0, 0, 393246, 0, 0, 458782, 0, 0, 524318, 0, 0, 589854, 0, 0, 655390, 0, 0, 720926, 0, 0, 786462, 0, 0, 851998, 0, 0, 917534, 0, 0, 1048603, 0, 0, 1114139, 0, 0, 1179675, 0, 0, 1048604, 0, 0, 1114140, 0, 0, 1179676, 0, 0, 1048605, 0, 0, 1114141, 0, 0, 1179677, 0, 0, 983053, 0, 0, 1048589, 0, 0, 1114125, 0, 0, 983054, 0, 0, 1048590, 0, 0, 1114126, 0, 0, 983055, 0, 0, 1048591, 0, 0, 1114127, 0, 0, 1441812, 6, 0)
+layer_2/tile_data = PackedInt32Array(65547, 0, 0, 131083, 0, 0, 196619, 0, 0, 262155, 0, 0, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 0, 0, 786443, 0, 0, 851979, 0, 0, 917515, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 1114132, 0, 0, 1179668, 0, 0, 1245204, 0, 0, 1310740, 0, 0, 1376276, 0, 0, 11, 0, 0, 30, 0, 0, 65566, 0, 0, 131102, 0, 0, 196638, 0, 0, 327710, 0, 0, 393246, 0, 0, 458782, 0, 0, 524318, 0, 0, 589854, 0, 0, 655390, 0, 0, 720926, 0, 0, 786462, 0, 0, 851998, 0, 0, 917534, 0, 0, 1048603, 0, 0, 1114139, 0, 0, 1179675, 0, 0, 1048604, 0, 0, 1114140, 0, 0, 1179676, 0, 0, 1048605, 0, 0, 1114141, 0, 0, 1179677, 0, 0, 983053, 0, 0, 1048589, 0, 0, 1114125, 0, 0, 983054, 0, 0, 1048590, 0, 0, 1114126, 0, 0, 983055, 0, 0, 1048591, 0, 0, 1114127, 0, 0, 1441812, 6, 0)
 script = ExtResource("5_gowui")
+layer_2/name = "Solid"
 
 [node name="TargetTile" parent="TileMap" instance=ExtResource("10_sfmat")]
 
@@ -153,4 +157,14 @@ shape = SubResource("CapsuleShape2D_kta2l")
 
 [node name="LogCanvas" parent="." instance=ExtResource("14_e4tam")]
 
+[node name="Door" type="Area2D" parent="."]
+position = Vector2(480, 64)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_cm4sn")
+
 [connection signal="area_entered" from="Sprite2D/Area2D" to="Sprite2D" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Door" to="." method="_on_door_area_entered"]
