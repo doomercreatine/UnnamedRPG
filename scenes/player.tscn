@@ -110,7 +110,6 @@ libraries = {
 }
 
 [node name="VisionLight" type="PointLight2D" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0.0666667)
 blend_mode = 2
 shadow_enabled = true
